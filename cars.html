@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Your site description here" />
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./cars_script.js" as="script" />
+    <link rel="preload" href="./cars_style.css" as="style" />
+
+    <!-- Font Display for Custom Fonts -->
+    <link
+      rel="stylesheet"
+      href= "https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- Async JavaScript -->
+    <script src="./cars_script.js" defer></script>
+    <title>TaxiFare - Taxi Service Website</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./cars_style.css" />
+  </head>
+  <body>
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 class="hero-title" id="hero-title">
+            Who<br />
+            <span class="highlight">We</span> Are?
+          </h1>
+          <div class="hero-divider"></div>
+          <p class="hero-subtitle">
+            We're not just a taxi service — we're a travel solution. We provide
+            well-maintained vehicles with courteous drivers, arranged personally
+            by our team.
+          </p>
+          <ul class="hero-features">
+            <li>Personalized trip coordination</li>
+            <li>Transparent fares</li>
+            <li>Trusted by locals and tourists alike</li>
+          </ul>
+          <a href="#services" class="cta-button">Know more</a>
+        </div>
+        <div class="hero-image-container">
+          <img src="./assets/heroimg.jpg" alt="heroImg" />
+        </div>
+      </div>
+    </section>
+    <div class="container">
+      <section class="cars-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2><span>Cars</span>See what we drive</h2>
+            <div class="underline"></div>
+          </div>
+          <div class="section-description">
+            <p>
+              We take pride in offering a range of clean, comfortable, and
+              reliable vehicles to suit every type of journey. Whether you're
+              planning a short city ride or a weekend getaway with family, our
+              fleet has the perfect car for your needs.
+            </p>
+          </div>
+        </div>
+        <div class="slider-container">
+          <div class="slider-track" id="slider-track">
+            <div class="slider-item">
+              <img src="./assets/package_4.webp" alt="Yellow Ferrari" />
+            </div>
+            <div class="slider-item">
+              <img
+                src="./assets/package_3.webp
+                        "
+                alt="Yellow Classic Car"
+              />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/hatchback.webp" alt="Yellow Sports Car" />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/package_2.jpg" alt="Yellow SUV" />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/package_3.webp" alt="Yellow Ferrari" />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/package_4.webp" alt="Yellow SUV" />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/hatchback.webp" alt="Yellow Classic Car" />
+            </div>
+            <div class="slider-item">
+              <img src="./assets/package_2.jpg" alt="Yellow Muscle Car" />
+            </div>
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn prev-btn" onclick="slide(-1)">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="slider-btn next-btn" onclick="slide(1)">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+        <div class="find-btn">
+          <button>Find Cars</button>
+        </div>
+      </section>
+    </div>
+    <div class="container">
+      <section class="services-section">
+        <div class="services-header">
+          <div class="services-title">
+            Our
+            <span>Services</span>
+            <div class="services-underline"></div>
+          </div>
+        </div>
+        <div class="services-grid">
+          <!-- Service Card 1 -->
+          <div class="service-card" id="card1">
+            <div class="service-header">Family Trips</div>
+            <div class="service-body">
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Spacious vehicles for small to large groups
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  AC, luggage space & clean interiors
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Ideal for holidays, weddings, or family outings
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 2 -->
+          <div class="service-card" id="card2">
+            <div class="service-header">Outstation Travel</div>
+            <div class="service-body">
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Spacious vehicles for smOne-way intercity
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Well-planned long-distance routes.
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Experienced drivers for smooth journeysall to large groups
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 3 -->
+          <div class="service-card" id="card3">
+            <div class="service-header">Airport / Railway Transfers</div>
+            <div class="service-body">
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Spacious vehicles for small to large groups
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  AC, luggage space & clean interiors
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Ideal for holidays, weddings, or family outings
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 4 -->
+          <div class="service-card" id="card4">
+            <div class="service-header">Custom Routes</div>
+            <div class="service-body">
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Spacious vehicles for small to large groups
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  AC, luggage space & clean interiors
+                </div>
+              </div>
+              <div class="service-feature">
+                <div class="service-icon">
+                  <i class="ri-check-double-line"></i>
+                </div>
+                <div class="service-text">
+                  Ideal for holidays, weddings, or family outings
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <section class="review-section" aria-label="Customer Reviews">
+      <div class="review-container">
+        <div class="reviews-slider">
+          <!-- First Review -->
+          <div class="slide active">
+            <div class="quote-mark">"</div>
+            <p class="review-text">
+              They arranged a 7-seater for our weekend trip and everything was
+              seamless.
+            </p>
+            <h3 class="reviewer-name">Neha D</h3>
+            <p class="reviewer-title">client</p>
+          </div>
+          <!-- Second Review -->
+          <div class="slide">
+            <div class="quote-mark">"</div>
+            <p class="review-text">
+              The service was exceptional. Our driver was professional and the
+              vehicle was immaculate.
+            </p>
+            <h3 class="reviewer-name">Michael R</h3>
+            <p class="reviewer-title">business traveler</p>
+          </div>
+          <!-- Third Review -->
+          <div class="slide">
+            <div class="quote-mark">"</div>
+            <p class="review-text">
+              On-time pickup and drop-off for our airport transfer. Would
+              definitely recommend!
+            </p>
+            <h3 class="reviewer-name">Sarah J</h3>
+            <p class="reviewer-title">regular customer</p>
+          </div>
+        </div>
+        <!-- Slider Navigation Dots -->
+        <div class="slider-dots">
+          <button
+            class="dot active"
+            aria-label="View first testimonial"
+            data-slide="0"
+          ></button>
+          <button
+            class="dot"
+            aria-label="View second testimonial"
+            data-slide="1"
+          ></button>
+          <button
+            class="dot"
+            aria-label="View third testimonial"
+            data-slide="2"
+          ></button>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="contact-container">
+        <div class="contact-section-container">
+          <div class="contact-info">
+            <h2>Get in <span class="highlight">touch</span><br />with us!</h2>
+            <div class="contact-details">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p>taxifare@gmail.com</p>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <p>+91-9057684404</p>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>Cine Mall, Vaishali Nagar, Ajmer,<br />Rajasthan 305001</p>
+              </div>
+            </div>
+            <div class="car-image-container">
+              <img
+                src="./assets/car33.png"
+                alt="Taxi service car"
+                class="contact-car-image"
+              />
+            </div>
+            <!-- Direction indicators -->
+            <div class="direction-indicator desktop-direction">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 12H19M19 12L13 6M19 12L13 18"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="direction-indicator mobile-direction">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5L12 19M12 19L18 13M12 19L6 13"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <!-- Curved edge separator -->
+            <div class="curved-edge-container">
+              <svg
+                class="curved-edge"
+                viewBox="0 0 100 1000"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0,0 C50,500 100,500 100,1000 L0,1000 Z"
+                  fill="#000000"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form id="taxi-contact-form">
+              <div class="form-group has-icon">
+                <label for="name" class="sr-only">Your Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Your Name"
+                  required
+                  aria-required="true"
+                />
+                <i class="input-icon fas fa-user"></i>
+              </div>
+              <div class="form-group has-icon">
+                <label for="phone" class="sr-only">Phone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Phone"
+                  required
+                  aria-required="true"
+                />
+                <i class="input-icon fas fa-phone"></i>
+              </div>
+              <div class="form-group has-icon">
+                <label for="email" class="sr-only">Email (optional)</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Email (optional)"
+                  aria-required="false"
+                />
+                <i class="input-icon fas fa-envelope"></i>
+              </div>
+              <div class="route-inputs">
+                <div class="form-group">
+                  <label for="from" class="sr-only">From</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="from"
+                    placeholder="From"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+                <div class="route-arrow">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12H19M19 12L13 6M19 12L13 18"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div class="form-group">
+                  <label for="to" class="sr-only">To</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="to"
+                    placeholder="To"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message" class="sr-only">Message/Query</label>
+                <textarea
+                  class="form-control form-textarea"
+                  id="message"
+                  placeholder="Message/Query"
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3 class="footer-heading">Our Products</h3>
+            <ul class="footer-links">
+              <li><a href="#">Nearby Getaways</a></li>
+              <li><a href="#">Cab Booking</a></li>
+              <li><a href="#">Airport Cabs Booking</a></li>
+              <li><a href="#">Outstation Cabs Booking</a></li>
+              <li><a href="#">Trip Money</a></li>
+              <li><a href="#">Avigo Advertising Solutions</a></li>
+              <li><a href="#">Travel Insurance</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3 class="footer-heading">About Us</h3>
+            <ul class="footer-links">
+              <li><a href="#">Investor Relations</a></li>
+              <li><a href="#">Management</a></li>
+              <li><a href="#">Terms Of Services</a></li>
+              <li><a href="#">User Agreement</a></li>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">YouTube Channel</a></li>
+              <li><a href="#">Technology@Avigo</a></li>
+              <li><a href="#">Customer Support</a></li>
+              <li><a href="#">Facebook Page</a></li>
+              <li><a href="#">Twitter Handle</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3 class="footer-heading">CONTACT</h3>
+            <div class="address-details">
+              <p>Near Regional College</p>
+              <p>4401 Ajmer Rajasthan,</p>
+              <p>305002</p>
+            </div>
+            <div class="contact-details">
+              <p><a href="mailto:Info@Avigotaxi.Com">Info@Avigotaxi.Com</a></p>
+              <p><a href="tel:+918999999888">+91 89XXXXX888</a></p>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3 class="footer-heading">More Links</h3>
+            <ul class="footer-links">
+              <li><a href="#">My Bookings</a></li>
+              <li><a href="#">Cancellation</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Wallet</a></li>
+              <li><a href="#">Advertise With Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="routes-section">
+          <div class="routes-column">
+            <h4 class="routes-heading">Top Routes</h4>
+            <div class="routes-links">
+              <a href="#">Delhi To Jaipur Cab</a> |
+              <a href="#">Mumbai To Pune Taxi</a> |
+              <a href="#">Bangalore To Mysore</a> |
+              <a href="#">Outstation Ride</a> |
+              <a href="#">Chennai To Pondicherry Cab Service</a> |
+              <a href="#">Kolkata To Digha Taxi Booking</a> |
+              <a href="#">Ahmedabad To Udaipur Car Rental</a> |
+              <a href="#">Hyderabad To Vijayawada Taxi Service</a> |
+              <a href="#">Chandigarh To Manali Cab</a>
+            </div>
+          </div>
+          <div class="routes-column">
+            <h4 class="routes-heading">Popular Local & Intercity Routes</h4>
+            <div class="routes-links">
+              <a href="#"
+                >Taxi From Indira Gandhi International Airport (Delhi)</a
+              >
+              |
+              <a href="#">Mumbai Local Rides (Andheri, Bandra, Navi Mumbai)</a>
+              | <a href="#">Bangalore Airport To Electronic City Cab</a> |
+              <a href="#">Pune To Shirdi Round Trip</a> |
+              <a href="#">Chennai To Tirupati</a> |
+              <a href="#">Darshan Package</a> |
+              <a href="#">Lucknow To Ayodhya Taxi</a> |
+              <a href="#">Dehradun To Mussoorie Sightseeing</a> |
+              <a href="#">Kochi Airport To Munnar Tax</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="social-section">
+            <h4 class="social-heading">Follow Us</h4>
+            <div class="social-links">
+              <a href="#" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-icon" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+          <div class="copyright">
+            Copyright @ 2025 AVIGO Taxis. All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="./cars_script.js"></script>
+  </body>
+</html>
