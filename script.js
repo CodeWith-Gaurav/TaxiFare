@@ -340,295 +340,291 @@ document.addEventListener('DOMContentLoaded', function() {
  }
  
  /**
-  * Contact Form
-  * Handles form validation, submission and visual effects
-  */
+ * Contact Form
+ * Handles form validation, submission and visual effects
+ */
  function initContactForm() {
-   const contactForm = document.getElementById('taxi-contact-form');
-   if (!contactForm) return;
- 
-   // Form submission handler with validation
-   contactForm.addEventListener('submit', function(e) {
-     e.preventDefault();
- 
-     // Basic validation
-     const name = document.getElementById('name')?.value.trim();
-     const phone = document.getElementById('phone')?.value.trim();
-     const email = document.getElementById('email')?.value.trim();
-     const from = document.getElementById('from')?.value.trim();
-     const to = document.getElementById('to')?.value.trim();
-     const message = document.getElementById('message')?.value.trim();
- 
-     if (!name || !phone || !from || !to) {
-       showNotification('Please fill all required fields', 'error');
-       return;
-     }
- 
-     // Validate phone number (Indian format)
-     const phoneRegex = /^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/;
-     if (!phoneRegex.test(phone)) {
-       showNotification('Please enter a valid Indian phone number', 'error');
-       return;
-     }
- 
-     // Validate email if provided
-     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-       showNotification('Please enter a valid email address', 'error');
-       return;
-     }
- 
-     // Prepare form data
-     const formData = {
-       name: name,
-       phone: phone,
-       email: email,
-       from: from,
-       to: to,
-       message: message
-     };
- 
-     // Send form data to server (placeholder for actual implementation)
-     console.log('Form submitted:', formData);
-     
-     // In a production environment, this would be replaced with an actual API call
-     // sendFormData(formData);
- 
-     // Show success message with custom notification
-     showNotification('Thank you! Your message has been sent successfully.', 'success');
-     contactForm.reset();
- 
-     // Add a nice success animation
-     const formSection = document.querySelector('.contact-form');
-     if (formSection) {
-       formSection.classList.add('form-submitted');
-       setTimeout(() => {
-         formSection.classList.remove('form-submitted');
-       }, 2000);
-     }
-   });
- 
-   // Add input focus effects with animations
-   const formInputs = contactForm.querySelectorAll('.form-control');
-   formInputs.forEach(input => {
-     // Modern focus effect
-     input.addEventListener('focus', function() {
-       this.parentElement.classList.add('focused');
-       this.style.transition = 'all 0.3s ease';
-       this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-       this.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
-     });
- 
-     input.addEventListener('blur', function() {
-       this.parentElement.classList.remove('focused');
-       this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-       this.style.boxShadow = 'none';
-     });
- 
-     // Add ripple effect on click
-     input.addEventListener('click', function(e) {
-       const ripple = document.createElement('span');
-       ripple.classList.add('input-ripple');
-       this.parentElement.appendChild(ripple);
- 
-       const rect = this.getBoundingClientRect();
-       const x = e.clientX - rect.left;
-       const y = e.clientY - rect.top;
- 
-       ripple.style.left = `${x}px`;
-       ripple.style.top = `${y}px`;
- 
-       setTimeout(() => {
-         ripple.remove();
-       }, 600);
-     });
-   });
- 
-   // Add smooth scrolling for direction indicators
-   const desktopDirectionIndicator = document.querySelector('.desktop-direction');
-   const mobileDirectionIndicator = document.querySelector('.mobile-direction');
-   const formSection = document.querySelector('.contact-form');
- 
-   if (desktopDirectionIndicator && formSection) {
-     desktopDirectionIndicator.addEventListener('click', function() {
-       formSection.scrollIntoView({ behavior: 'smooth' });
-     });
-   }
- 
-   if (mobileDirectionIndicator && formSection) {
-     mobileDirectionIndicator.addEventListener('click', function() {
-       formSection.scrollIntoView({ behavior: 'smooth' });
-     });
-   }
- }
- 
- /**
-  * Contact Section Animations
-  * Adds animations to elements in the contact section
-  */
- function initContactAnimations() {
-   // Add animation to car image based on scroll
-   const carImage = document.querySelector('.contact-car-image');
-   if (!carImage) return;
- 
-   // Use intersection observer for better performance
-   if ('IntersectionObserver' in window) {
-     const observer = new IntersectionObserver((entries) => {
-       entries.forEach(entry => {
-         if (entry.isIntersecting) {
-           entry.target.style.animation = 'floatCar 4s ease-in-out infinite';
-           entry.target.style.opacity = '1';
-           entry.target.style.transform = 'translateY(0)';
-           observer.unobserve(entry.target);
-         }
-       });
-     }, { threshold: 0.1 });
- 
-     observer.observe(carImage);
-   }
- 
-   // Animate contact details on scroll
-   const contactElements = document.querySelectorAll('.contact-info h2, .contact-item');
-   if ('IntersectionObserver' in window && contactElements.length) {
-     const elementsObserver = new IntersectionObserver((entries) => {
-       entries.forEach((entry, index) => {
-         if (entry.isIntersecting) {
-           // Staggered animation for better visual appeal
-           setTimeout(() => {
-             entry.target.style.opacity = '1';
-             entry.target.style.transform = 'translateY(0)';
-           }, index * 150);
- 
-           elementsObserver.unobserve(entry.target);
-         }
-       });
-     }, {
-       threshold: 0.1,
-       rootMargin: '0px 0px -50px 0px'
-     });
- 
-     contactElements.forEach(element => {
-       elementsObserver.observe(element);
-     });
-   }
- }
- 
- /**
-  * Footer Animations
-  * Adds animations to elements in the footer section
-  */
- function initFooterAnimations() {
-   // Intersection Observer for animation on scroll
-   const animatedElements = document.querySelectorAll('.footer-column, .routes-column, .footer-bottom');
-   if (animatedElements.length === 0) return;
- 
-   if ('IntersectionObserver' in window) {
-     const observer = new IntersectionObserver((entries) => {
-       entries.forEach(entry => {
-         if (entry.isIntersecting) {
-           // Reset animation
-           entry.target.style.animation = 'none';
-           void entry.target.offsetWidth; // Trigger reflow
- 
-           // Apply animation based on element type
-           if (entry.target.classList.contains('footer-column')) {
-             const index = Array.from(document.querySelectorAll('.footer-column')).indexOf(entry.target);
-             entry.target.style.animation = `fadeInUp 0.6s ease forwards ${0.1 * (index + 1)}s`;
-           } else if (entry.target.classList.contains('routes-column')) {
-             const index = Array.from(document.querySelectorAll('.routes-column')).indexOf(entry.target);
-             entry.target.style.animation = `fadeInUp 0.6s ease forwards ${0.5 + (0.1 * index)}s`;
-           } else if (entry.target.classList.contains('footer-bottom')) {
-             entry.target.style.animation = 'fadeInUp 0.6s ease forwards 0.6s';
-           }
- 
-           observer.unobserve(entry.target);
-         }
-       });
-     }, { threshold: 0.1 });
- 
-     animatedElements.forEach(element => {
-       observer.observe(element);
-     });
-   }
- 
-   // Social icons hover effect enhancement
-   const socialIcons = document.querySelectorAll('.social-icon');
-   socialIcons.forEach(icon => {
-     icon.addEventListener('mouseenter', function() {
-       this.style.transform = 'translateY(-5px) rotate(5deg)';
-     });
- 
-     icon.addEventListener('mouseleave', function() {
-       this.style.transform = 'translateY(0) rotate(0deg)';
-     });
-   });
- 
-   // Footer links enhancements for better accessibility
-   const footerLinks = document.querySelectorAll('.footer-links a, .routes-links a');
-   footerLinks.forEach(link => {
-     link.addEventListener('focus', function() {
-       this.style.color = '#0de8c8';
-       this.style.outline = 'none';
-     });
- 
-     link.addEventListener('blur', function() {
-       this.style.color = '';
-     });
- 
-     // Add aria-label for better screen reader support
-     if (!link.getAttribute('aria-label')) {
-       link.setAttribute('aria-label', link.textContent + ' link');
-     }
-   });
- }
- 
- /**
-  * Custom Notification Component
-  * Displays user-friendly notifications
-  * 
-  * @param {string} message - The message to display
-  * @param {string} type - The type of notification (info, success, error)
-  */
- function showNotification(message, type = 'info') {
-   // Create notification element
-   const notification = document.createElement('div');
-   notification.className = `custom-notification ${type}`;
-   notification.setAttribute('role', 'alert'); // For accessibility
-   notification.innerHTML = `
-     <div class="notification-content">
-       <span>${message}</span>
-       <button class="notification-close" aria-label="Close notification">×</button>
-     </div>
-   `;
- 
-   // Add to DOM
-   document.body.appendChild(notification);
- 
-   // Show with animation
-   setTimeout(() => {
-     notification.style.opacity = '1';
-     notification.style.transform = 'translateY(0)';
-   }, 10);
- 
-   // Close on button click
-   const closeBtn = notification.querySelector('.notification-close');
-   closeBtn.addEventListener('click', () => {
-     notification.style.opacity = '0';
-     notification.style.transform = 'translateY(20px)';
- 
-     setTimeout(() => {
-       notification.remove();
-     }, 300);
-   });
- 
-   // Auto close after 5 seconds
-   setTimeout(() => {
-     if (document.body.contains(notification)) {
-       notification.style.opacity = '0';
-       notification.style.transform = 'translateY(20px)';
- 
-       setTimeout(() => {
-         notification.remove();
-       }, 300);
-     }
-   }, 5000);
- }
+  const contactForm = document.getElementById('taxi-contact-form');
+  if (!contactForm) return;
+
+  // Form submission handler with validation
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Clear any existing notifications first
+    const existingNotifications = document.querySelectorAll('.custom-notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    // Get form fields directly from the form elements collection
+    // This avoids potential issues with getElementById
+    const name = contactForm.elements['name'] ? contactForm.elements['name'].value.trim() : '';
+    const phone = contactForm.elements['phone'] ? contactForm.elements['phone'].value.trim() : '';
+    const email = contactForm.elements['email'] ? contactForm.elements['email'].value.trim() : '';
+    const from = contactForm.elements['from'] ? contactForm.elements['from'].value.trim() : '';
+    const to = contactForm.elements['to'] ? contactForm.elements['to'].value.trim() : '';
+    const message = contactForm.elements['message'] ? contactForm.elements['message'].value.trim() : '';
+
+    // Simple console log to verify values are being read correctly
+    console.log('Form values:', { name, phone, email, from, to, message });
+
+    // Skip validation and always show success message
+    // This will help us determine if the issue is with validation or something else
+    
+    // Prepare form data
+    const formData = {
+      name: name,
+      phone: phone,
+      email: email,
+      from: from,
+      to: to,
+      message: message
+    };
+
+    // Send form data to server (placeholder for actual implementation)
+    console.log('Form submitted:', formData);
+    
+    // Show success message and reset form
+    showNotification('Thank you! Your message has been sent successfully.', 'success');
+    contactForm.reset();
+
+    // Add a nice success animation
+    const formSection = document.querySelector('.contact-form');
+    if (formSection) {
+      formSection.classList.add('form-submitted');
+      setTimeout(() => {
+        formSection.classList.remove('form-submitted');
+      }, 2000);
+    }
+  });
+
+  // Add input focus effects with animations
+  const formInputs = contactForm.querySelectorAll('.form-control');
+  formInputs.forEach(input => {
+    // Modern focus effect
+    input.addEventListener('focus', function() {
+      this.parentElement.classList.add('focused');
+      this.style.transition = 'all 0.3s ease';
+      this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+      this.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+    });
+
+    input.addEventListener('blur', function() {
+      this.parentElement.classList.remove('focused');
+      this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+      this.style.boxShadow = 'none';
+    });
+
+    // Add ripple effect on click
+    input.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      ripple.classList.add('input-ripple');
+      this.parentElement.appendChild(ripple);
+
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+
+  // Add smooth scrolling for direction indicators
+  const desktopDirectionIndicator = document.querySelector('.desktop-direction');
+  const mobileDirectionIndicator = document.querySelector('.mobile-direction');
+  const formSection = document.querySelector('.contact-form');
+
+  if (desktopDirectionIndicator && formSection) {
+    desktopDirectionIndicator.addEventListener('click', function() {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  if (mobileDirectionIndicator && formSection) {
+    mobileDirectionIndicator.addEventListener('click', function() {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+}
+
+/**
+ * Contact Section Animations
+ * Adds animations to elements in the contact section
+ */
+function initContactAnimations() {
+  // Add animation to car image based on scroll
+  const carImage = document.querySelector('.contact-car-image');
+  if (!carImage) return;
+
+  // Use intersection observer for better performance
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'floatCar 4s ease-in-out infinite';
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(carImage);
+  }
+
+  // Animate contact details on scroll
+  const contactElements = document.querySelectorAll('.contact-info h2, .contact-item');
+  if ('IntersectionObserver' in window && contactElements.length) {
+    const elementsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Staggered animation for better visual appeal
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 150);
+
+          elementsObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    contactElements.forEach(element => {
+      elementsObserver.observe(element);
+    });
+  }
+}
+
+/**
+ * Footer Animations
+ * Adds animations to elements in the footer section
+ */
+function initFooterAnimations() {
+  // Intersection Observer for animation on scroll
+  const animatedElements = document.querySelectorAll('.footer-column, .routes-column, .footer-bottom');
+  if (animatedElements.length === 0) return;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Reset animation
+          entry.target.style.animation = 'none';
+          void entry.target.offsetWidth; // Trigger reflow
+
+          // Apply animation based on element type
+          if (entry.target.classList.contains('footer-column')) {
+            const index = Array.from(document.querySelectorAll('.footer-column')).indexOf(entry.target);
+            entry.target.style.animation = `fadeInUp 0.6s ease forwards ${0.1 * (index + 1)}s`;
+          } else if (entry.target.classList.contains('routes-column')) {
+            const index = Array.from(document.querySelectorAll('.routes-column')).indexOf(entry.target);
+            entry.target.style.animation = `fadeInUp 0.6s ease forwards ${0.5 + (0.1 * index)}s`;
+          } else if (entry.target.classList.contains('footer-bottom')) {
+            entry.target.style.animation = 'fadeInUp 0.6s ease forwards 0.6s';
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    animatedElements.forEach(element => {
+      observer.observe(element);
+    });
+  }
+
+  // Social icons hover effect enhancement
+  const socialIcons = document.querySelectorAll('.social-icon');
+  socialIcons.forEach(icon => {
+    icon.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px) rotate(5deg)';
+    });
+
+    icon.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) rotate(0deg)';
+    });
+  });
+
+  // Footer links enhancements for better accessibility
+  const footerLinks = document.querySelectorAll('.footer-links a, .routes-links a');
+  footerLinks.forEach(link => {
+    link.addEventListener('focus', function() {
+      this.style.color = '#0de8c8';
+      this.style.outline = 'none';
+    });
+
+    link.addEventListener('blur', function() {
+      this.style.color = '';
+    });
+
+    // Add aria-label for better screen reader support
+    if (!link.getAttribute('aria-label')) {
+      link.setAttribute('aria-label', link.textContent + ' link');
+    }
+  });
+}
+
+/**
+ * Custom Notification Component
+ * Displays user-friendly notifications
+ * 
+ * @param {string} message - The message to display
+ * @param {string} type - The type of notification (info, success, error)
+ */
+function showNotification(message, type = 'info') {
+  // First, remove any existing notifications to prevent multiple ones showing
+  const existingNotifications = document.querySelectorAll('.custom-notification');
+  existingNotifications.forEach(notification => {
+    notification.remove();
+  });
+
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = `custom-notification ${type}`;
+  notification.setAttribute('role', 'alert'); // For accessibility
+  notification.innerHTML = `
+    <div class="notification-content">
+      <span>${message}</span>
+      <button class="notification-close" aria-label="Close notification">×</button>
+    </div>
+  `;
+
+  // Add to DOM
+  document.body.appendChild(notification);
+
+  // Show with animation
+  setTimeout(() => {
+    notification.style.opacity = '1';
+    notification.style.transform = 'translateY(0)';
+  }, 10);
+
+  // Close on button click
+  const closeBtn = notification.querySelector('.notification-close');
+  closeBtn.addEventListener('click', () => {
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  });
+
+  // Auto close after 5 seconds
+  setTimeout(() => {
+    if (document.body.contains(notification)) {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }
+  }, 5000);
+}
