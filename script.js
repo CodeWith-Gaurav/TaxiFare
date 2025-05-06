@@ -12,343 +12,343 @@
  */
 
 // Wait for DOM to be fully loaded before executing scripts
-document.addEventListener('DOMContentLoaded', function() {
-   // Initialize all components
-   initImageSlider();
-   initServiceCards();
-   initReviewSlider();
-   initHeroEffects();
-   initContactForm();
-   initContactAnimations();
-   initFooterAnimations();
- });
- 
- /**
-  * Image Slider Component
-  * Handles the automatic sliding of images in the gallery
-  */
- function initImageSlider() {
-   let currentPosition = 0;
-   const track = document.getElementById('slider-track');
-   
-   // If slider doesn't exist on the page, exit function
-   if (!track) return;
-   
-   const items = document.querySelectorAll('.slider-item');
-   if (items.length === 0) return;
-   
-   const itemWidth = items[0].offsetWidth + 20; // width + margin
-   const visibleItems = Math.floor(track.offsetWidth / itemWidth);
-   const maxPosition = items.length - visibleItems;
- 
-   /**
-    * Moves the slider in the specified direction
-    * @param {number} direction - Direction to slide (1 for next, -1 for previous)
-    */
-   function slide(direction) {
-     currentPosition += direction;
- 
-     // Loop back to start or end
-     if (currentPosition < 0) {
-       currentPosition = maxPosition;
-     } else if (currentPosition > maxPosition) {
-       currentPosition = 0;
-     }
- 
-     // Move the track with smooth animation
-     track.style.transform = `translateX(-${currentPosition * itemWidth}px)`;
-   }
- 
-   // Auto slide every 4 seconds for better user experience
-   const slideInterval = setInterval(() => {
-     slide(1);
-   }, 4000);
- 
-   // Responsive adjustments when window is resized
-   window.addEventListener('resize', () => {
-     const newVisibleItems = Math.floor(track.offsetWidth / itemWidth);
-     if (visibleItems !== newVisibleItems) {
-       currentPosition = 0;
-       track.style.transform = `translateX(0px)`;
-     }
-   });
-   
-   // Cleanup function to prevent memory leaks
-   return function cleanup() {
-     clearInterval(slideInterval);
-   };
- }
- 
- /**
-  * Service Cards Component
-  * Handles the animation of service cards as they enter the viewport
-  */
- function initServiceCards() {
-   const cards = document.querySelectorAll('.service-card');
-   if (cards.length === 0) return;
-   
-   // Set initial styles for animation
-   cards.forEach(card => {
-     card.style.opacity = '0';
-     card.style.transform = 'translateY(30px)';
-     card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
- 
-     // Ensure the text content inside each card is fully visible
-     const features = card.querySelectorAll('.service-feature');
-     features.forEach(feature => {
-       feature.style.opacity = '1';
-       feature.style.transform = 'translateY(0)';
-     });
-   });
- 
-   /**
-    * Checks if an element is in the viewport
-    * @param {HTMLElement} element - Element to check
-    * @return {boolean} Whether the element is in the viewport
-    */
-   function isInViewport(element) {
-     const rect = element.getBoundingClientRect();
-     return (
-       rect.top >= 0 &&
-       rect.left >= 0 &&
-       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-     );
-   }
- 
-   /**
-    * Animates cards when they come into view
-    */
-   function animateOnScroll() {
-     cards.forEach((card, index) => {
-       if (isInViewport(card)) {
-         card.style.opacity = '1';
-         card.style.transform = 'translateY(0)';
-         card.style.transitionDelay = `${index * 0.1}s`;
-       }
-     });
-   }
- 
-   // Trigger animation on load and scroll
-   animateOnScroll();
-   window.addEventListener('scroll', animateOnScroll);
- }
- 
- /**
-  * Customer Reviews Slider
-  * Handles the testimonial slider with navigation and touch controls
-  */
- function initReviewSlider() {
-   const slides = document.querySelectorAll('.slide');
-   const dots = document.querySelectorAll('.dot');
-   
-   // If slider doesn't exist on the page, exit function
-   if (slides.length === 0 || dots.length === 0) return;
-   
-   let currentSlide = 0;
-   let interval;
- 
-   /**
-    * Changes to the specified slide
-    * @param {number} index - Index of the slide to display
-    */
-   function goToSlide(index) {
-     // Remove active class from all slides
-     slides.forEach((slide, i) => {
-       slide.classList.remove('active', 'prev');
-       if (i < index) {
-         slide.classList.add('prev');
-       }
-     });
- 
-     // Add active class to current slide
-     slides[index].classList.add('active');
- 
-     // Update dots
-     dots.forEach((dot, i) => {
-       dot.classList.toggle('active', i === index);
-       
-       // Add ARIA attributes for accessibility
-       dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
-     });
- 
-     currentSlide = index;
-   }
- 
-   // Add click event to dots
-   dots.forEach((dot) => {
-     dot.addEventListener('click', function() {
-       const slideIndex = parseInt(this.getAttribute('data-slide'));
-       goToSlide(slideIndex);
-       resetInterval();
-     });
-   });
- 
-   /**
-    * Auto slide function
-    */
-   function autoSlide() {
-     let nextSlide = currentSlide + 1;
-     if (nextSlide >= slides.length) {
-       nextSlide = 0;
-     }
-     goToSlide(nextSlide);
-   }
- 
-   /**
-    * Start auto-sliding
-    */
-   function startInterval() {
-     interval = setInterval(autoSlide, 5000);
-   }
- 
-   /**
-    * Reset the auto-slide interval
-    */
-   function resetInterval() {
-     clearInterval(interval);
-     startInterval();
-   }
- 
-   // Initialize auto sliding
-   startInterval();
- 
-   // Touch events for mobile swiping
-   const slider = document.querySelector('.reviews-slider');
-   if (slider) {
-     let touchStartX = 0;
-     let touchEndX = 0;
- 
-     slider.addEventListener('touchstart', function(e) {
-       touchStartX = e.changedTouches[0].screenX;
-     }, { passive: true });
- 
-     slider.addEventListener('touchend', function(e) {
-       touchEndX = e.changedTouches[0].screenX;
-       handleSwipe();
-     }, { passive: true });
- 
-     /**
-      * Handles swipe gestures
-      */
-     function handleSwipe() {
-       const threshold = 50; // Minimum distance for a swipe
- 
-       if (touchStartX - touchEndX > threshold) {
-         // Swipe left (next slide)
-         let nextSlide = currentSlide + 1;
-         if (nextSlide >= slides.length) {
-           nextSlide = 0;
-         }
-         goToSlide(nextSlide);
-         resetInterval();
-       } else if (touchEndX - touchStartX > threshold) {
-         // Swipe right (previous slide)
-         let prevSlide = currentSlide - 1;
-         if (prevSlide < 0) {
-           prevSlide = slides.length - 1;
-         }
-         goToSlide(prevSlide);
-         resetInterval();
-       }
-     }
- 
-     // Accessibility: Pause auto rotation when tabbing through
-     slider.addEventListener('focusin', function() {
-       clearInterval(interval);
-     });
- 
-     slider.addEventListener('focusout', function() {
-       startInterval();
-     });
- 
-     // Add keyboard navigation for accessibility
-     document.addEventListener('keydown', function(e) {
-       if (document.activeElement.classList.contains('dot')) {
-         if (e.key === 'ArrowLeft') {
-           let prevSlide = currentSlide - 1;
-           if (prevSlide < 0) {
-             prevSlide = slides.length - 1;
-           }
-           goToSlide(prevSlide);
-           resetInterval();
-         } else if (e.key === 'ArrowRight') {
-           let nextSlide = currentSlide + 1;
-           if (nextSlide >= slides.length) {
-             nextSlide = 0;
-           }
-           goToSlide(nextSlide);
-           resetInterval();
-         }
-       }
-     });
-   }
- }
- 
- /**
-  * Hero Section Effects
-  * Adds parallax and animation effects to the hero section
-  */
- function initHeroEffects() {
-   // Parallax effect on scroll
-   window.addEventListener('scroll', function() {
-     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-     const heroImage = document.querySelector('.hero-image');
- 
-     if (heroImage) {
-       // Subtle parallax effect for better visual appeal
-       heroImage.style.transform = `scale(1) translateY(${scrollTop * 0.05}px)`;
-     }
-   });
- 
-   // Hover effect for the CTA button
-   const ctaButton = document.querySelector('.cta-button');
-   if (ctaButton) {
-     ctaButton.addEventListener('mousemove', function(e) {
-       const x = e.pageX - this.offsetLeft;
-       const y = e.pageY - this.offsetTop;
- 
-       this.style.setProperty('--x', x + 'px');
-       this.style.setProperty('--y', y + 'px');
-     });
-   }
- 
-   // Intersection Observer for elements coming into view
-   const observeElements = document.querySelectorAll('.hero-content, .hero-image-container');
-   if ('IntersectionObserver' in window && observeElements.length > 0) {
-     const observer = new IntersectionObserver((entries) => {
-       entries.forEach(entry => {
-         if (entry.isIntersecting) {
-           entry.target.style.animation = 'none'; // Reset animation
-           void entry.target.offsetWidth; // Trigger reflow
- 
-           if (entry.target.classList.contains('hero-content')) {
-             entry.target.style.animation = 'fadeInUp 1s ease forwards';
-           } else if (entry.target.classList.contains('hero-image-container')) {
-             entry.target.style.animation = 'fadeInRight 1s ease forwards';
-           }
- 
-           observer.unobserve(entry.target);
-         }
-       });
-     }, { threshold: 0.1 });
- 
-     observeElements.forEach(element => {
-       observer.observe(element);
-     });
-   }
- }
- 
- /**
- * Contact Form
- * Handles form validation, submission and visual effects
+document.addEventListener('DOMContentLoaded', function () {
+  // Initialize all components
+  initImageSlider();
+  initServiceCards();
+  initReviewSlider();
+  initHeroEffects();
+  initContactForm();
+  initContactAnimations();
+  initFooterAnimations();
+});
+
+/**
+ * Image Slider Component
+ * Handles the automatic sliding of images in the gallery
  */
- function initContactForm() {
+function initImageSlider() {
+  let currentPosition = 0;
+  const track = document.getElementById('slider-track');
+
+  // If slider doesn't exist on the page, exit function
+  if (!track) return;
+
+  const items = document.querySelectorAll('.slider-item');
+  if (items.length === 0) return;
+
+  const itemWidth = items[0].offsetWidth + 20; // width + margin
+  const visibleItems = Math.floor(track.offsetWidth / itemWidth);
+  const maxPosition = items.length - visibleItems;
+
+  /**
+   * Moves the slider in the specified direction
+   * @param {number} direction - Direction to slide (1 for next, -1 for previous)
+   */
+  function slide(direction) {
+    currentPosition += direction;
+
+    // Loop back to start or end
+    if (currentPosition < 0) {
+      currentPosition = maxPosition;
+    } else if (currentPosition > maxPosition) {
+      currentPosition = 0;
+    }
+
+    // Move the track with smooth animation
+    track.style.transform = `translateX(-${currentPosition * itemWidth}px)`;
+  }
+
+  // Auto slide every 4 seconds for better user experience
+  const slideInterval = setInterval(() => {
+    slide(1);
+  }, 4000);
+
+  // Responsive adjustments when window is resized
+  window.addEventListener('resize', () => {
+    const newVisibleItems = Math.floor(track.offsetWidth / itemWidth);
+    if (visibleItems !== newVisibleItems) {
+      currentPosition = 0;
+      track.style.transform = `translateX(0px)`;
+    }
+  });
+
+  // Cleanup function to prevent memory leaks
+  return function cleanup() {
+    clearInterval(slideInterval);
+  };
+}
+
+/**
+ * Service Cards Component
+ * Handles the animation of service cards as they enter the viewport
+ */
+function initServiceCards() {
+  const cards = document.querySelectorAll('.service-card');
+  if (cards.length === 0) return;
+
+  // Set initial styles for animation
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+    // Ensure the text content inside each card is fully visible
+    const features = card.querySelectorAll('.service-feature');
+    features.forEach(feature => {
+      feature.style.opacity = '1';
+      feature.style.transform = 'translateY(0)';
+    });
+  });
+
+  /**
+   * Checks if an element is in the viewport
+   * @param {HTMLElement} element - Element to check
+   * @return {boolean} Whether the element is in the viewport
+   */
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  /**
+   * Animates cards when they come into view
+   */
+  function animateOnScroll() {
+    cards.forEach((card, index) => {
+      if (isInViewport(card)) {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.style.transitionDelay = `${index * 0.1}s`;
+      }
+    });
+  }
+
+  // Trigger animation on load and scroll
+  animateOnScroll();
+  window.addEventListener('scroll', animateOnScroll);
+}
+
+/**
+ * Customer Reviews Slider
+ * Handles the testimonial slider with navigation and touch controls
+ */
+function initReviewSlider() {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  // If slider doesn't exist on the page, exit function
+  if (slides.length === 0 || dots.length === 0) return;
+
+  let currentSlide = 0;
+  let interval;
+
+  /**
+   * Changes to the specified slide
+   * @param {number} index - Index of the slide to display
+   */
+  function goToSlide(index) {
+    // Remove active class from all slides
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active', 'prev');
+      if (i < index) {
+        slide.classList.add('prev');
+      }
+    });
+
+    // Add active class to current slide
+    slides[index].classList.add('active');
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+
+      // Add ARIA attributes for accessibility
+      dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+    });
+
+    currentSlide = index;
+  }
+
+  // Add click event to dots
+  dots.forEach((dot) => {
+    dot.addEventListener('click', function () {
+      const slideIndex = parseInt(this.getAttribute('data-slide'));
+      goToSlide(slideIndex);
+      resetInterval();
+    });
+  });
+
+  /**
+   * Auto slide function
+   */
+  function autoSlide() {
+    let nextSlide = currentSlide + 1;
+    if (nextSlide >= slides.length) {
+      nextSlide = 0;
+    }
+    goToSlide(nextSlide);
+  }
+
+  /**
+   * Start auto-sliding
+   */
+  function startInterval() {
+    interval = setInterval(autoSlide, 5000);
+  }
+
+  /**
+   * Reset the auto-slide interval
+   */
+  function resetInterval() {
+    clearInterval(interval);
+    startInterval();
+  }
+
+  // Initialize auto sliding
+  startInterval();
+
+  // Touch events for mobile swiping
+  const slider = document.querySelector('.reviews-slider');
+  if (slider) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slider.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    /**
+     * Handles swipe gestures
+     */
+    function handleSwipe() {
+      const threshold = 50; // Minimum distance for a swipe
+
+      if (touchStartX - touchEndX > threshold) {
+        // Swipe left (next slide)
+        let nextSlide = currentSlide + 1;
+        if (nextSlide >= slides.length) {
+          nextSlide = 0;
+        }
+        goToSlide(nextSlide);
+        resetInterval();
+      } else if (touchEndX - touchStartX > threshold) {
+        // Swipe right (previous slide)
+        let prevSlide = currentSlide - 1;
+        if (prevSlide < 0) {
+          prevSlide = slides.length - 1;
+        }
+        goToSlide(prevSlide);
+        resetInterval();
+      }
+    }
+
+    // Accessibility: Pause auto rotation when tabbing through
+    slider.addEventListener('focusin', function () {
+      clearInterval(interval);
+    });
+
+    slider.addEventListener('focusout', function () {
+      startInterval();
+    });
+
+    // Add keyboard navigation for accessibility
+    document.addEventListener('keydown', function (e) {
+      if (document.activeElement.classList.contains('dot')) {
+        if (e.key === 'ArrowLeft') {
+          let prevSlide = currentSlide - 1;
+          if (prevSlide < 0) {
+            prevSlide = slides.length - 1;
+          }
+          goToSlide(prevSlide);
+          resetInterval();
+        } else if (e.key === 'ArrowRight') {
+          let nextSlide = currentSlide + 1;
+          if (nextSlide >= slides.length) {
+            nextSlide = 0;
+          }
+          goToSlide(nextSlide);
+          resetInterval();
+        }
+      }
+    });
+  }
+}
+
+/**
+ * Hero Section Effects
+ * Adds parallax and animation effects to the hero section
+ */
+function initHeroEffects() {
+  // Parallax effect on scroll
+  window.addEventListener('scroll', function () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const heroImage = document.querySelector('.hero-image');
+
+    if (heroImage) {
+      // Subtle parallax effect for better visual appeal
+      heroImage.style.transform = `scale(1) translateY(${scrollTop * 0.05}px)`;
+    }
+  });
+
+  // Hover effect for the CTA button
+  const ctaButton = document.querySelector('.cta-button');
+  if (ctaButton) {
+    ctaButton.addEventListener('mousemove', function (e) {
+      const x = e.pageX - this.offsetLeft;
+      const y = e.pageY - this.offsetTop;
+
+      this.style.setProperty('--x', x + 'px');
+      this.style.setProperty('--y', y + 'px');
+    });
+  }
+
+  // Intersection Observer for elements coming into view
+  const observeElements = document.querySelectorAll('.hero-content, .hero-image-container');
+  if ('IntersectionObserver' in window && observeElements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'none'; // Reset animation
+          void entry.target.offsetWidth; // Trigger reflow
+
+          if (entry.target.classList.contains('hero-content')) {
+            entry.target.style.animation = 'fadeInUp 1s ease forwards';
+          } else if (entry.target.classList.contains('hero-image-container')) {
+            entry.target.style.animation = 'fadeInRight 1s ease forwards';
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observeElements.forEach(element => {
+      observer.observe(element);
+    });
+  }
+}
+
+/**
+* Contact Form
+* Handles form validation, submission and visual effects
+*/
+function initContactForm() {
   const contactForm = document.getElementById('taxi-contact-form');
   if (!contactForm) return;
 
   // Form submission handler with validation
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Clear any existing notifications first
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Skip validation and always show success message
     // This will help us determine if the issue is with validation or something else
-    
+
     // Prepare form data
     const formData = {
       name: name,
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Send form data to server (placeholder for actual implementation)
     console.log('Form submitted:', formData);
-    
+
     // Show success message and reset form
     showNotification('Thank you! Your message has been sent successfully.', 'success');
     contactForm.reset();
@@ -401,21 +401,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const formInputs = contactForm.querySelectorAll('.form-control');
   formInputs.forEach(input => {
     // Modern focus effect
-    input.addEventListener('focus', function() {
+    input.addEventListener('focus', function () {
       this.parentElement.classList.add('focused');
       this.style.transition = 'all 0.3s ease';
       this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
       this.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
     });
 
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
       this.parentElement.classList.remove('focused');
       this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
       this.style.boxShadow = 'none';
     });
 
     // Add ripple effect on click
-    input.addEventListener('click', function(e) {
+    input.addEventListener('click', function (e) {
       const ripple = document.createElement('span');
       ripple.classList.add('input-ripple');
       this.parentElement.appendChild(ripple);
@@ -439,13 +439,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const formSection = document.querySelector('.contact-form');
 
   if (desktopDirectionIndicator && formSection) {
-    desktopDirectionIndicator.addEventListener('click', function() {
+    desktopDirectionIndicator.addEventListener('click', function () {
       formSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
   if (mobileDirectionIndicator && formSection) {
-    mobileDirectionIndicator.addEventListener('click', function() {
+    mobileDirectionIndicator.addEventListener('click', function () {
       formSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
@@ -543,11 +543,11 @@ function initFooterAnimations() {
   // Social icons hover effect enhancement
   const socialIcons = document.querySelectorAll('.social-icon');
   socialIcons.forEach(icon => {
-    icon.addEventListener('mouseenter', function() {
+    icon.addEventListener('mouseenter', function () {
       this.style.transform = 'translateY(-5px) rotate(5deg)';
     });
 
-    icon.addEventListener('mouseleave', function() {
+    icon.addEventListener('mouseleave', function () {
       this.style.transform = 'translateY(0) rotate(0deg)';
     });
   });
@@ -555,12 +555,12 @@ function initFooterAnimations() {
   // Footer links enhancements for better accessibility
   const footerLinks = document.querySelectorAll('.footer-links a, .routes-links a');
   footerLinks.forEach(link => {
-    link.addEventListener('focus', function() {
+    link.addEventListener('focus', function () {
       this.style.color = '#0de8c8';
       this.style.outline = 'none';
     });
 
-    link.addEventListener('blur', function() {
+    link.addEventListener('blur', function () {
       this.style.color = '';
     });
 
