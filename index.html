@@ -4,14 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="TAXIFARE - Your trusted partner for safe, reliable, and comfortable taxi services across the city and beyond. Book now for airport transfers, family trips, and outstation travel." />
-    <meta name="keywords" content="taxi service, cab booking, airport transfer, taxi fare, outstation taxi, family trips" />
+    <meta
+      name="description"
+      content="TAXIFARE - Your trusted partner for safe, reliable, and comfortable taxi services across the city and beyond. Book now for airport transfers, family trips, and outstation travel."
+    />
+    <meta
+      name="keywords"
+      content="taxi service, cab booking, airport transfer, taxi fare, outstation taxi, family trips"
+    />
     <meta name="author" content="TAXIFARE" />
     <meta name="robots" content="index, follow" />
-    
+
     <!-- Open Graph Meta Tags for social sharing -->
     <meta property="og:title" content="TAXIFARE - Reliable Taxi Service" />
-    <meta property="og:description" content="Your trusted partner for safe, reliable taxi services. Book now for airport transfers, family trips & more." />
+    <meta
+      property="og:description"
+      content="Your trusted partner for safe, reliable taxi services. Book now for airport transfers, family trips & more."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.taxifare.com/" />
     <meta property="og:image" content="./assets/hero_section.jpg" />
@@ -33,20 +42,28 @@
       onload="this.media='all'"
     />
 
-    <title>TAXIFARE - Professional Taxi Service | Airport Transfers | Outstation Travel</title>
-    
+    <title>
+      TAXIFARE - Professional Taxi Service | Airport Transfers | Outstation
+      Travel
+    </title>
+
     <!-- Async JavaScript -->
     <script src="./script.js" defer></script>
-    
+
     <!-- Icon Library -->
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-    
+    <!-- Font Awesome for icons used in navbar and other sections -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="./style.css" />
-    
+
     <!-- Structured Data for Rich Snippets -->
     <script type="application/ld+json">
       {
@@ -75,23 +92,81 @@
     </script>
   </head>
   <body>
+    <!-- Navbar from first HTML -->
     <header>
-      <nav id="navbar" aria-label="Main navigation">
-        <!-- Your navigation menu would go here -->
+      <nav class="navbar" id="navbar" aria-label="Main navigation">
+        <!-- Logo Link -->
+        <a href="index.html" class="logo-link">
+          <img
+            src="./assets/TAXI_FARE-Logo.jpg.svg"
+            alt="TAXIFARE logo"
+            class="logo-img"
+          />
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="nav-links" id="navLinks">
+          <i class="fa-solid fa-xmark close-btn" id="closeBtn"></i>
+          <ul>
+            <li><a href="#hero-section">Home</a></li>
+            <li><a href="#about-us">About</a></li>
+            <li><a href="#Our-services">Our Services</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <i class="fa-solid fa-bars menu-btn" id="menuBtn"></i>
       </nav>
     </header>
-    
+
     <main>
-      <section class="hero" id="about-us" aria-label="About TAXIFARE">
+      <!-- Hero Section from first HTML -->
+      <section class="hero" id="hero-section">
         <div class="hero-content">
-          <h1 class="hero-heading">Who <span class="highlight">We</span> Are?</h1>
-          <div class="hero-divider" aria-hidden="true"></div>
-          <p class="hero-text">
+          <h1 class="hero-tagline">
+            Your <span>Ride</span><br />Your <span>Way</span> -Taxi<span
+              >FARE</span
+            >
+          </h1>
+
+          <p class="booking-text">
+            Book your <span class="highlight">Taxi</span> in few minutes
+            -available <span class="bold">24/7</span>
+          </p>
+
+          <div class="rating">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="customers">2,00,000+ <a href="#">Trusted Customers</a></p>
+          </div>
+
+          <div class="cta-buttons">
+            <a href="tel:+1234567890" class="cta-btn call-btn">
+              <i class="fa-solid fa-phone"></i>
+              CALL
+            </a>
+            <a href="#contact" class="cta-btn book-btn">BOOK NOW</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Original hero section renamed to about section -->
+      <section class="about" id="about-us" aria-label="About TAXIFARE">
+        <div class="about-content">
+          <h1 class="about-heading">
+            Who <span class="highlight">We</span> Are?
+          </h1>
+          <div class="about-divider" aria-hidden="true"></div>
+          <p class="about-text">
             We're not just a taxi service — we're a travel solution. We provide
             well-maintained vehicles with courteous drivers, arranged personally
             by our team.
           </p>
-          <ul class="hero-features">
+          <ul class="about-features">
             <li>Personalized trip coordination</li>
             <li>Transparent fares</li>
             <li>Trusted by locals and tourists alike</li>
@@ -99,18 +174,18 @@
           <a href="#Our-services" class="cta-button">Know more</a>
         </div>
 
-        <div class="hero-image-area">
+        <div class="about-image-area">
           <img
             src="./assets/hero_section.jpg"
             alt="Professional taxi driver standing next to a green taxi with city skyline background"
-            class="hero-illustration"
+            class="about-illustration"
             width="600"
             height="400"
             loading="eager"
           />
         </div>
       </section>
-      
+
       <section class="cars-section" id="cars" aria-label="Our Fleet">
         <div class="container">
           <div class="section-header">
@@ -130,36 +205,92 @@
           <div class="slider-container">
             <div class="slider-track" id="slider-track">
               <div class="slider-item">
-                <img src="./assets/package_4.webp" alt="Yellow Ferrari luxury taxi" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_4.webp"
+                  alt="Yellow Ferrari luxury taxi"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/package_3.webp" alt="Yellow Classic Car taxi service" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_3.webp"
+                  alt="Yellow Classic Car taxi service"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/hatchback.webp" alt="Yellow Sports Car for city travel" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/hatchback.webp"
+                  alt="Yellow Sports Car for city travel"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/package_2.jpg" alt="Yellow SUV for family trips" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_2.jpg"
+                  alt="Yellow SUV for family trips"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/package_3.webp" alt="Yellow Ferrari premium taxi" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_3.webp"
+                  alt="Yellow Ferrari premium taxi"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/package_4.webp" alt="Yellow SUV for outstation travel" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_4.webp"
+                  alt="Yellow SUV for outstation travel"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/hatchback.webp" alt="Yellow Classic Car for airport transfer" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/hatchback.webp"
+                  alt="Yellow Classic Car for airport transfer"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
               <div class="slider-item">
-                <img src="./assets/package_2.jpg" alt="Yellow Muscle Car premium service" width="300" height="200" loading="lazy" />
+                <img
+                  src="./assets/package_2.jpg"
+                  alt="Yellow Muscle Car premium service"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
           <div class="slider-controls">
-            <button class="slider-btn prev-btn" onclick="slide(-1)" aria-label="Previous slide">
+            <button
+              class="slider-btn prev-btn"
+              onclick="slide(-1)"
+              aria-label="Previous slide"
+            >
               <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
             </button>
-            <button class="slider-btn next-btn" onclick="slide(1)" aria-label="Next slide">
+            <button
+              class="slider-btn next-btn"
+              onclick="slide(1)"
+              aria-label="Next slide"
+            >
               <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
             </button>
           </div>
@@ -168,8 +299,12 @@
           </div>
         </div>
       </section>
-      
-      <section class="services-section" id="Our-services" aria-label="Our Services">
+
+      <section
+        class="services-section"
+        id="Our-services"
+        aria-label="Our Services"
+      >
         <div class="container">
           <div class="services-header">
             <div class="services-title">
@@ -302,18 +437,25 @@
           </div>
         </div>
       </section>
-      
-      <section class="review-section" id="reviews" aria-label="Customer Reviews">
+
+      <section
+        class="review-section"
+        id="reviews"
+        aria-label="Customer Reviews"
+      >
         <div class="review-container">
           <div class="reviews-slider">
             <!-- First Review -->
-            <article class="slide active" aria-label="Customer review from Rajesh Mehta">
+            <article
+              class="slide active"
+              aria-label="Customer review from Rajesh Mehta"
+            >
               <div class="quote-mark" aria-hidden="true">"</div>
               <blockquote class="review-text">
                 <p>
-                  Booked a cab from Bandra to CST at 5 AM — the driver arrived on
-                  time, well-dressed, and the cab was spotless. TAXIFARE is now my
-                  go-to for airport rides!
+                  Booked a cab from Bandra to CST at 5 AM — the driver arrived
+                  on time, well-dressed, and the cab was spotless. TAXIFARE is
+                  now my go-to for airport rides!
                 </p>
               </blockquote>
               <footer>
@@ -322,7 +464,10 @@
               </footer>
             </article>
             <!-- Second Review -->
-            <article class="slide" aria-label="Customer review from Anjali Sharma">
+            <article
+              class="slide"
+              aria-label="Customer review from Anjali Sharma"
+            >
               <div class="quote-mark" aria-hidden="true">"</div>
               <blockquote class="review-text">
                 <p>
@@ -337,7 +482,10 @@
               </footer>
             </article>
             <!-- Third Review -->
-            <article class="slide" aria-label="Customer review from Priya Deshmukh">
+            <article
+              class="slide"
+              aria-label="Customer review from Priya Deshmukh"
+            >
               <div class="quote-mark" aria-hidden="true">"</div>
               <blockquote class="review-text">
                 <p>
@@ -378,180 +526,115 @@
           </div>
         </div>
       </section>
-      
-      <!-- Contact Section -->
-      <section id="contact" class="contact-section" aria-label="Contact Us">
-        <div class="contact-container">
-          <div class="contact-section-container">
+
+      <!-- Contact Section from first HTML -->
+      <section class="contact-section" id="contact" aria-label="Contact Us">
+        <div class="container">
+          <div class="contact-content">
             <div class="contact-info">
-              <h2>Get in <span class="highlight">touch</span><br />with us!</h2>
-              <address class="contact-details">
+              <h2>Get in Touch with Us</h2>
+              <p class="contact-description">
+                If you'd like, you can call us directly at the provided number,
+                or simply fill out the form, and we'll get back to you shortly.
+              </p>
+              <div class="contact-details">
                 <div class="contact-item">
-                  <i class="fas fa-envelope" aria-hidden="true"></i>
-                  <p><a href="mailto:taxifare@gmail.com">taxifare@gmail.com</a></p>
+                  <div class="icon-wrapper">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                  </div>
+                  <div class="contact-text">
+                    <h3>Call Us</h3>
+                    <a href="tel:+919876543210" class="phone-link"
+                      >+91 9876 543 210</a
+                    >
+                  </div>
                 </div>
+
                 <div class="contact-item">
-                  <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                  <p><a href="tel:+919057684404">+91-9057684404</a></p>
+                  <div class="icon-wrapper">
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  </div>
+                  <div class="contact-text">
+                    <h3>Email Us</h3>
+                    <a href="mailto:info@taxifare.com" class="email-link"
+                      >info@taxifare.com</a
+                    >
+                  </div>
                 </div>
-                <div class="contact-item">
-                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                  <p>Cine Mall, Vaishali Nagar, Ajmer,<br />Rajasthan 305001</p>
-                </div>
-              </address>
-              <div class="car-image-container">
-                <img
-                  src="./assets/car33.png"
-                  alt="TAXIFARE service car"
-                  class="contact-car-image"
-                  width="300"
-                  height="150"
-                  loading="lazy"
-                />
-              </div>
-              <!-- Direction indicators -->
-              <div class="direction-indicator desktop-direction" aria-hidden="true">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5 12H19M19 12L13 6M19 12L13 18"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-              <div class="direction-indicator mobile-direction" aria-hidden="true">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 5L12 19M12 19L18 13M12 19L6 13"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-              <!-- Curved edge separator -->
-              <div class="curved-edge-container" aria-hidden="true">
-                <svg
-                  class="curved-edge"
-                  viewBox="0 0 100 1000"
-                  preserveAspectRatio="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0,0 C50,500 100,500 100,1000 L0,1000 Z"
-                    fill="#000000"
-                  ></path>
-                </svg>
               </div>
             </div>
-            <div class="contact-form">
-              <form id="taxi-contact-form" aria-label="Contact form">
-                <div class="form-group has-icon">
-                  <!-- <label for="name">Your Name</label> -->
+
+            <div class="contact-form-container">
+              <form class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                  <label for="name">Full Name</label>
                   <input
                     type="text"
-                    class="form-control"
                     id="name"
-                    placeholder="Your Name"
+                    name="name"
+                    placeholder="Enter your full name"
                     required
-                    aria-required="true"
                   />
                 </div>
-                <div class="form-group has-icon">
-                  <!-- <label for="phone">Phone</label> -->
+
+                <div class="form-group">
+                  <label for="mobile">Mobile Number</label>
                   <input
                     type="tel"
-                    class="form-control"
-                    id="phone"
-                    placeholder="Phone"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter your mobile number"
+                    pattern="[6-9][0-9]{9}"
+                    title="Please enter a valid 10-digit Indian mobile number"
                     required
-                    aria-required="true"
                   />
-                  <i class="input-icon fas fa-phone" aria-hidden="true"></i>
+                  <small class="form-hint"
+                    >Format: Indian mobile number only!</small
+                  >
                 </div>
-                <div class="form-group has-icon">
-                  <!-- <label for="email">Email (optional)</label> -->
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="Email (optional)"
-                    aria-required="false"
-                  />
-                  <i class="input-icon fas fa-envelope" aria-hidden="true"></i>
-                </div>
-                <div class="route-inputs">
+
+                <div class="form-row">
                   <div class="form-group">
-                    <!-- <label for="from">From</label> -->
+                    <label for="from">From</label>
                     <input
                       type="text"
-                      class="form-control"
                       id="from"
-                      placeholder="From"
+                      name="from"
+                      placeholder="Pickup location"
                       required
-                      aria-required="true"
                     />
                   </div>
-                  <div class="route-arrow" aria-hidden="true">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 12H19M19 12L13 6M19 12L13 18"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </div>
+
                   <div class="form-group">
-                    <!-- <label for="to">To</label> -->
+                    <label for="to">To</label>
                     <input
                       type="text"
-                      class="form-control"
                       id="to"
-                      placeholder="To"
+                      name="to"
+                      placeholder="Drop location"
                       required
-                      aria-required="true"
                     />
                   </div>
                 </div>
+
                 <div class="form-group">
-                  <!-- <label for="message">Message/Query</label> -->
+                  <label for="query">Your Query</label>
                   <textarea
-                    class="form-control form-textarea"
-                    id="message"
-                    placeholder="Message/Query"
+                    id="query"
+                    name="query"
+                    placeholder="Tell us about your requirements"
+                    rows="4"
                   ></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Send Message</button>
+
+                <button type="submit" class="submit-btn">Submit Request</button>
               </form>
             </div>
           </div>
         </div>
       </section>
     </main>
-    
+
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-content">
@@ -565,7 +648,7 @@
           </div>
           <div class="footer-column">
             <h3 class="footer-heading">
-              <a href="#about-us">About Us</a>
+              <a href="#about-us" style="color: white; text-decoration: none">About Us</a>
             </h3>
             <ul class="footer-links">
               <li><a href="#">Terms Of Services</a></li>
@@ -616,8 +699,14 @@
           <div class="routes-column">
             <h4 class="routes-heading">Popular Local & Intercity Routes</h4>
             <div class="routes-links">
-              <a href="#contact">Taxi From Indira Gandhi International Airport (Delhi)</a> |
-              <a href="#contact">Mumbai Local Rides (Andheri, Bandra, Navi Mumbai)</a> |
+              <a href="#contact"
+                >Taxi From Indira Gandhi International Airport (Delhi)</a
+              >
+              |
+              <a href="#contact"
+                >Mumbai Local Rides (Andheri, Bandra, Navi Mumbai)</a
+              >
+              |
               <a href="#contact">Bangalore Airport To Electronic City Cab</a> |
               <a href="#contact">Pune To Shirdi Round Trip</a> |
               <a href="#contact">Chennai To Tirupati</a> |
@@ -635,7 +724,11 @@
               <a href="#" class="social-icon" aria-label="Email us">
                 <i class="ri-mail-line" aria-hidden="true"></i>
               </a>
-              <a href="#" class="social-icon" aria-label="Follow us on Instagram">
+              <a
+                href="#"
+                class="social-icon"
+                aria-label="Follow us on Instagram"
+              >
                 <i class="ri-instagram-line" aria-hidden="true"></i>
               </a>
               <a href="#" class="social-icon" aria-label="Follow us on Twitter">

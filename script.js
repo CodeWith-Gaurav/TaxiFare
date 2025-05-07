@@ -3,6 +3,7 @@
  * Optimized and SEO-friendly JavaScript
  * 
  * This file contains all JavaScript functionality for the taxi service website:
+ * - Mobile navigation menu functionality
  * - Image slider functionality
  * - Service card animations
  * - Customer review slider
@@ -14,6 +15,7 @@
 // Wait for DOM to be fully loaded before executing scripts
 document.addEventListener('DOMContentLoaded', function () {
   // Initialize all components
+  initMobileNavigation();
   initImageSlider();
   initServiceCards();
   initReviewSlider();
@@ -22,6 +24,61 @@ document.addEventListener('DOMContentLoaded', function () {
   initContactAnimations();
   initFooterAnimations();
 });
+
+/**
+ * Mobile Navigation
+ * Handles mobile menu toggle functionality
+ */
+function initMobileNavigation() {
+  // Get elements
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const navLinks = document.getElementById('navLinks');
+  
+  // Check if elements exist before adding event listeners
+  if (menuBtn && closeBtn && navLinks) {
+    // Open menu when hamburger icon is clicked
+    menuBtn.addEventListener('click', function() {
+      navLinks.classList.add('active');
+    });
+    
+    // Close menu when X icon is clicked
+    closeBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      navLinks.classList.remove('active');
+    });
+    
+    // Close menu when clicking outside (optional enhancement)
+    document.addEventListener('click', function(event) {
+      if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+      }
+    });
+    
+    // Close menu when window is resized to desktop size
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+      }
+      
+      // Ensure proper display of menu buttons based on screen size
+      if (window.innerWidth > 768) {
+        // Hide buttons on desktop
+        if (menuBtn) menuBtn.style.display = 'none';
+        if (closeBtn) closeBtn.style.display = 'none';
+      } else {
+        // Show hamburger on mobile
+        if (menuBtn) menuBtn.style.display = 'block';
+      }
+    });
+    
+    // Initial check for screen size
+    if (window.innerWidth > 768) {
+      menuBtn.style.display = 'none';
+      closeBtn.style.display = 'none';
+    }
+  }
+}
 
 /**
  * Image Slider Component
@@ -340,9 +397,9 @@ function initHeroEffects() {
 }
 
 /**
-* Contact Form
-* Handles form validation, submission and visual effects
-*/
+ * Contact Form
+ * Handles form validation, submission and visual effects
+ */
 function initContactForm() {
   const contactForm = document.getElementById('taxi-contact-form');
   if (!contactForm) return;
@@ -366,9 +423,6 @@ function initContactForm() {
 
     // Simple console log to verify values are being read correctly
     console.log('Form values:', { name, phone, email, from, to, message });
-
-    // Skip validation and always show success message
-    // This will help us determine if the issue is with validation or something else
 
     // Prepare form data
     const formData = {
