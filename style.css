@@ -819,7 +819,7 @@ main{
     margin-bottom: 30px;
 }
 
-.contact-details {
+.contact-detail-item {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -854,7 +854,7 @@ main{
 
 .phone-link, .email-link {
     font-size: 1.1rem;
-    /* color: var(--primary-color); */
+    color: #00a89a;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
