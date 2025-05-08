@@ -29,10 +29,10 @@ body {
     background-color: #092726;
     padding: 0 2rem;
     height: 70px;
-    position: fixed;
+    position: sticky;
     left: 0;
     right: 0;
-    top: 0;
+    top: 10px;
     z-index: 1000;
     border-radius: 50px;
     margin: 10px 20px;
