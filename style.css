@@ -471,7 +471,7 @@ main{
     margin-top: 20px;
 }
 
-.slider-btn {
+.slider-nav-button {
     background: var(--gradient-color);
     color: white;
     border: none;
@@ -487,29 +487,8 @@ main{
     transition: background-color 0.3s ease;
 }
 
-.slider-btn:hover {
+.slider-nav-button:hover {
     background: var(--gradient-color);
-}
-
-.find-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.find-btn button {
-    background: var(--gradient-color);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.find-btn button:hover {
-    background: var(--service-gradient);
 }
 
 .container {
@@ -966,7 +945,7 @@ input:focus, textarea:focus {
 }
 
 /* Input Ripple Effect */
-.input-ripple {
+/* .input-ripple {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
@@ -989,16 +968,16 @@ input:focus, textarea:focus {
 }
 
 /* Car Animation */
-@keyframes floatCar {
+/* @keyframes floatCar {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
         transform: translateY(-10px);
     }
-}
+} */
 
-/* Screen Reader Only Class */
+Screen Reader Only Class */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -1012,7 +991,7 @@ input:focus, textarea:focus {
 }
 
 /* Custom Notification Styles */
-.custom-notification {
+/* .custom-notification {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -1056,7 +1035,7 @@ input:focus, textarea:focus {
     cursor: pointer;
     margin-left: 10px;
     padding: 0 5px;
-}
+} */
 
 /* Footer Section Styles */
 .footer {

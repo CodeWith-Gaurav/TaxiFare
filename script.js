@@ -94,6 +94,10 @@ function initImageSlider() {
   const items = document.querySelectorAll('.slider-item');
   if (items.length === 0) return;
 
+  // Find the navigation buttons
+  const prevButton = document.querySelector('.slider-nav-button.prev');
+  const nextButton = document.querySelector('.slider-nav-button.next');
+
   const itemWidth = items[0].offsetWidth + 20; // width + margin
   const visibleItems = Math.floor(track.offsetWidth / itemWidth);
   const maxPosition = items.length - visibleItems;
@@ -116,6 +120,19 @@ function initImageSlider() {
     track.style.transform = `translateX(-${currentPosition * itemWidth}px)`;
   }
 
+  // Add click event listeners to navigation buttons
+  if (prevButton) {
+    prevButton.addEventListener('click', function() {
+      slide(-1);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', function() {
+      slide(1);
+    });
+  }
+
   // Auto slide every 4 seconds for better user experience
   const slideInterval = setInterval(() => {
     slide(1);
@@ -133,6 +150,8 @@ function initImageSlider() {
   // Cleanup function to prevent memory leaks
   return function cleanup() {
     clearInterval(slideInterval);
+    if (prevButton) prevButton.removeEventListener('click', () => slide(-1));
+    if (nextButton) nextButton.removeEventListener('click', () => slide(1));
   };
 }
 
