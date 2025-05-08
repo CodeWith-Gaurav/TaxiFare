@@ -14,11 +14,17 @@
     --service-gradient: linear-gradient(#000000, #666666);
     --form-color: rgba(102, 102, 102, 0.40);
 }
+html, body {
+    scroll-behavior: smooth;
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    background-color: #f7f7f7;
+    overflow-x: hidden;
+}
+
 html{
     scroll-behavior: smooth;
-}
-body {
-    background-color: #fff;
 }
 
 /* === Navigation Bar === */
